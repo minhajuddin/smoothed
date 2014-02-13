@@ -13,6 +13,8 @@
     l(options);
     l('done');
 
+    this.wireupEventHandlers()
+
     return this;
   };
 
@@ -32,7 +34,15 @@
     //select the newly inserted tags and the old selection
     this.editable.setSelectionRange(asymmetric || selectionStart === selectionEnd ? selectionStart + startTag.length: selectionStart, (asymmetric ? selectionEnd: selectionStart) + startTag.length);
     this.editable.focus();
+    $(this.editable).trigger('keyup');
   };
+
+  Smoothed.prototype.wireupEventHandlers = function(){
+    self = this;
+    $(this.editable).on('keyup', function(){
+      self.preview.innerHTML = marked(self.editable.value);
+    });
+  }
 
 })();
 
