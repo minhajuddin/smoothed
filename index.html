@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<title>
+  Smooth Ed Test
+</title>
+<style>
+#editor{
+  width:48%;
+  float:left;
+  height: 100%;
+}
+#preview{
+  width: 48%;
+  float: right;
+  border-left: 1% solid #aaa;
+  height: 400px;
+  background-color: #aaa;
+  padding: 5px;
+}
+#editor textarea{
+  height: 400px;
+  width: 100%;
+}
+</style>
+</head>
+<body>
+<div id="wrapper">
+  <div id="editor">
+    <button id='hello'>Insert Hello World</button>
+    <textarea id="editable"></textarea>
+  </div>
+  <div id="preview">
+    Preview pane
+  </div>
+</div>
+<script src='jquery.js'></script>
+<script src='smoothed.js'></script>
+<script>
+var editor = new Smoothed({editable: $('#editable')[0], preview: $('#preview')[0]})
+editor.insert('Hello World')
+</script>
+</body>
+</html>
