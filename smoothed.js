@@ -17,22 +17,22 @@
   };
 
   //commands
-  //inserts text at current cursor position or at a 
-  //specific cursor position if position is passed
-  var insert = function(text, position){
-    var pos = this.cursorPosition();
-        
-  }
+  //usage
+  //  editor.insert("<a>", "</a>") => Wraps the selected text with these
+  //  editor.insert("Foo") => Replaces the selected text with 'Foo'
+  Smoothed.prototype.insert = function(startTag, endTag) {
+    l(startTag, endTag);
+    var asymmetric = arguments.length > 1,
+    selectionStart = this.editable.selectionStart,
+    selectionEnd = this.editable.selectionEnd,
+    oldText = this.editable.value;
 
-  Smoothed.prototype.insert = function(html) {
-    l("inserting", html);
-    this.editable.value += html;
+    //insert the tag wrapped with the start and end tag
+    this.editable.value = oldText.substring(0, selectionStart) + (asymmetric ? startTag + oldText.substring(selectionStart, selectionEnd) + endTag: startTag) + oldText.substring(selectionEnd);
+    //select the newly inserted tags and the old selection
+    this.editable.setSelectionRange(asymmetric || selectionStart === selectionEnd ? selectionStart + startTag.length: selectionStart, (asymmetric ? selectionEnd: selectionStart) + startTag.length);
+    this.editable.focus();
   };
 
-  Smoothed.prototype.selectedText = function() {
-    var value = this.editable.value,
-        selectedText = value.substring(this.editable.selectionStart, this.editable.selectionEnd);
-    return selectedText;
-  };
 })();
 

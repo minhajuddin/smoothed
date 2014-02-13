@@ -27,7 +27,7 @@
 <body>
 <div id="wrapper">
   <div id="editor">
-    <button id='hello'>Insert Hello World</button>
+    <button onclick='editor.insert("Hello World")'>Insert Hello World</button>
     <textarea id="editable"></textarea>
   </div>
   <div id="preview">
@@ -37,8 +37,7 @@
 <script src='jquery.js'></script>
 <script src='smoothed.js'></script>
 <script>
-var editor = new Smoothed({editable: $('#editable')[0], preview: $('#preview')[0]})
-editor.insert('Hello World')
+window.editor = new Smoothed({editable: $('#editable')[0], preview: $('#preview')[0]})
 </script>
 </body>
 </html>
