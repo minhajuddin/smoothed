@@ -13,16 +13,29 @@
 
   var commands = [new Smoothed.Command({
     key: {
-      code: 66
+      code: 66 //Ctrl b
     },
     exec: function() {
-      console.log("Test")
+      this.insert("**", "**")
+    }
+  }), new Smoothed.Command({
+    key: {
+      code: 73 //Ctrl i
+    },
+    exec: function() {
+      console.log("HOO")
+      this.insert("*", "*")
     }
   })]
 
   Smoothed.prototype.commands = function() {
     return commands;
   }
+
+  //for debugging
+  Smoothed.prototype.keyUp = function(e) {
+    //console.log(e.keyCode);
+  };
 
 })();
 

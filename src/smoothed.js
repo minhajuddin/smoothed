@@ -45,8 +45,6 @@
       return cmd.keyCodeMatches(e);
     });
 
-    console.log("Found", cmd);
-
     if (!cmd) {
       return;
     }
@@ -67,18 +65,19 @@
   };
 
   Smoothed.Command.prototype.keyCodeMatches = function(e) {
-    console.log("keycode matches", e);
     if (!this.key) {
       return false;
     }
+    console.log(e, this.key);
     return e.ctrlKey && this.key.code == e.keyCode;
   };
 
   Smoothed.prototype.wireupEventHandlers = function() {
-    var self = this;
+    var contentChange = _.bind(this.contentChange, this)
     this.$editable.on('keyup', _.bind(this.keyUp, this));
     this.$editable.on('keyup', _.bind(this.runKeyCommand, this));
-    this.$editable.on('content-change', _.bind(this.contentChange, this));
+    this.$editable.on('keyup', contentChange);
+    this.$editable.on('content-change', contentChange);
   };
 
 })();
