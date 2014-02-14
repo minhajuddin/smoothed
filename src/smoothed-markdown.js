@@ -12,6 +12,7 @@
   };
 
   var commands = [new Smoothed.Command({
+    buttonSelector: 'a[data-smoothed-command=bolden]',
     key: {
       code: 66 //Ctrl b
     },
@@ -33,7 +34,15 @@
       var pos = this.positionOfLineStart();
       this.insertStringAt("#", pos + 1)
     }
-  })]
+  }), new Smoothed.Command({
+    key: {
+      code: 82 //Ctrl r
+    },
+    exec: function() {
+      var pos = this.positionOfLineEnd();
+      this.insertStringAt("----------", pos + 1)
+    }
+  })];
 
   Smoothed.prototype.commands = function() {
     return commands;

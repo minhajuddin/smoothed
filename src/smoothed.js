@@ -44,6 +44,17 @@
     return i;
   }
 
+  Smoothed.prototype.positionOfLineEnd = function() {
+    var len = this.editable.value.length - 1,
+    i = this.editable.selectionStart;
+    for (; i <= 0; i++) {
+      if (this.editable.value.substr(i, 1) == "\n") {
+        break;
+      }
+    }
+    return i;
+  }
+
   Smoothed.prototype.insertStringAt = function(str, pos) {
     this.editable.setSelectionRange(pos, pos);
     this.insert(str);
@@ -65,11 +76,10 @@
       return;
     }
 
-    cmd.exec.apply(this);
-
     e.stopPropagation();
     e.preventDefault();
-  }
+    cmd.exec.apply(this);
+  };
 
   Smoothed.Command = function(options) {
     this.options = options;
