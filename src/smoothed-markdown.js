@@ -67,7 +67,7 @@
         this.editable.setSelectionRange(pos + 6, pos + 15); //to select the text "List item"
       }
     }),
-    //Ctrl o
+    //Ctrl u
     ul: new Smoothed.Command({
       key: 84,
       exec: function() {
@@ -75,8 +75,16 @@
         this.insertStringAt("\n\n - List item\n\n", pos + 1);
         this.editable.setSelectionRange(pos + 5, pos + 14); //to select the text "List item"
       }
+    }),
+    //Ctrl q
+    quote: new Smoothed.Command({
+      key: 81,
+      exec: function() {
+        var pos = this.editable.selectionStart;
+        this.insertStringAt("\n\n> put your quote here\n\n", pos);
+        this.editable.setSelectionRange(pos + 4, pos + 23); //to select the text "put your quote here"
+      }
     })
-
   };
 
   Smoothed.prototype.commands = function() {
@@ -89,3 +97,4 @@
   };
 
 })();
+
