@@ -45,8 +45,23 @@
 
   Smoothed.prototype.wireupEventHandlers = function() {
     var self = this;
-    this.$editable.on('keyup', function() {
+    this.$editable.on('keyup', function(e) {
+      var ctrl = e.ctrlKey,
+      shift = e.shiftKey,
+      alt = e.altKey,
+      key = e.keyCode,
+      blocked = false;
+
+      //Ctrl B
+      if (ctrl && key == 66) {
+        self.insert('**', '**')
+      }
+
       self.$editable.trigger('content-change');
+      if (blocked) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
     });
     this.$editable.on('content-change', _.bind(this.contentChange, this));
   };
