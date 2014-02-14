@@ -80,9 +80,13 @@
     quote: new Smoothed.Command({
       key: 81,
       exec: function() {
-        var pos = this.editable.selectionStart;
-        this.insertStringAt("\n\n> put your quote here\n\n", pos);
-        this.editable.setSelectionRange(pos + 4, pos + 23); //to select the text "put your quote here"
+        var start = this.editable.selectionStart,
+        end = this.editable.selectionEnd;
+
+        if (start == end) {
+          this.insertStringAt("\n\n> put your quote here\n\n", start);
+          this.editable.setSelectionRange(pos + 4, pos + 23); //to select the text "put your quote here"
+        }
       }
     })
   };

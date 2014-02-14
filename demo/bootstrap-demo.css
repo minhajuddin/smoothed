@@ -1,0 +1,44 @@
+#editor{
+  width:49%;
+  float:left;
+  height: 100%;
+}
+#editor textarea{
+  height: 400px;
+  width: 100%;
+}
+#toolbar {
+  margin-bottom: 2px;
+}
+#toolbar a {
+  display: inline-block;
+  border: 1px solid #888;
+  text-align: center;
+  width: 25px;
+  text-decoration: none;
+}
+
+#smoothed-preview{
+  width: 48%;
+  float: right;
+  margin-top: 20px;
+  border-left: 4px solid #aaa;
+  height: 400px;
+  padding-left: 10px;
+}
+#smoothed-preview{
+	background:white;
+	padding-top:10px;
+	padding-bottom:10px;
+	font-family: Helvetica,arial,freesans,clean,sans-serif;
+	font-size:13px;
+	line-height:1.6;
+}
+
+#smoothed-preview>*:first-child{
+	margin-top:0!important;
+}
+
+#smoothed-preview>*:last-child{
+	margin-bottom:0!important;
+}

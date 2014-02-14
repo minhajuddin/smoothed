@@ -108,7 +108,7 @@
     this.$editable.on('keyup', contentChange);
     this.$editable.on('content-change', contentChange);
     var self = this;
-    $(document).on('click', 'a[data-smoothed-command]', function(e) {
+    $(document).on('click', 'button[data-smoothed-command]', function(e) {
       var cmdName = $(this).attr('data-smoothed-command')
       var cmd = self.commands()[cmdName];
       cmd && cmd.run(e, self)
