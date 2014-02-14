@@ -4,33 +4,13 @@
 <title>
   Smooth Ed Test
 </title>
-<style>
-#editor{
-  width:48%;
-  float:left;
-  height: 100%;
-}
-#preview{
-  width: 48%;
-  float: right;
-  border-left: 1% solid #aaa;
-  height: 400px;
-  background-color: #aaa;
-  padding: 5px;
-}
-#editor textarea{
-  height: 400px;
-  width: 100%;
-}
-#toolbar a {padding: 5px;}
-</style>
+<link href="demo/demo.css" rel="stylesheet" />
 </head>
 <body>
 <div id="wrapper">
   <div id="editor">
     <div id="toolbar">
       <strong><a href='#' onclick='editor.insert("**", "**")'>B</a></strong>
-      |
       <i><a href='#' onclick='editor.insert("*", "*")'>I</a></i>
     </div>
     <textarea id="editable"></textarea>
@@ -39,12 +19,10 @@
     Preview pane
   </div>
 </div>
-<script src='jquery.js'></script>
-<script src='marked.js'></script>
-<script src='smoothed.js'></script>
-<script>
-window.editor = new Smoothed({editable: $('#editable')[0], preview: $('#preview')[0]})
-editor.insert("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-</script>
+<script src='lib/jquery.js'></script>
+<script src='lib/marked.js'></script>
+<script src='lib/underscore.js'></script>
+<script src='src/smoothed.js'></script>
+<script src='demo/demo.js'></script>
 </body>
 </html>

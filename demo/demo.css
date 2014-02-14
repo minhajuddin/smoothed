@@ -1,0 +1,27 @@
+#editor{
+  width:48%;
+  float:left;
+  height: 100%;
+}
+#preview{
+  width: 48%;
+  float: right;
+  border-left: 1% solid #aaa;
+  height: 400px;
+  background-color: #aaa;
+  padding: 5px;
+}
+#editor textarea{
+  height: 400px;
+  width: 100%;
+}
+#toolbar {
+  margin-bottom: 2px;
+}
+#toolbar a {
+  display: inline-block;
+  border: 1px solid #888;
+  text-align: center;
+  width: 20px;
+  text-decoration: none;
+}
