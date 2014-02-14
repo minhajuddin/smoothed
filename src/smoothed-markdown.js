@@ -65,7 +65,28 @@
         var pos = this.positionOfLineEnd();
         this.insertStringAt("\n\n----------\n\n", pos + 1)
       }
+    }),
+    ol: new Smoothed.Command({
+      key: {
+        code: 79 //Ctrl o
+      },
+      exec: function() {
+        var pos = this.positionOfLineEnd();
+        this.insertStringAt("\n\n 1. List item\n\n", pos + 1);
+        this.editable.setSelectionRange(pos + 6, pos + 15); //to select the text "List item"
+      }
+    }),
+    ul: new Smoothed.Command({
+      key: {
+        code: 84 //Ctrl o
+      },
+      exec: function() {
+        var pos = this.positionOfLineEnd();
+        this.insertStringAt("\n\n - List item\n\n", pos + 1);
+        this.editable.setSelectionRange(pos + 5, pos + 14); //to select the text "List item"
+      }
     })
+
   };
 
   Smoothed.prototype.commands = function() {
@@ -74,7 +95,8 @@
 
   //for debugging
   Smoothed.prototype.keyUp = function(e) {
-    console.log(e.keyCode);
+    //console.log(e.keyCode);
   };
 
 })();
+

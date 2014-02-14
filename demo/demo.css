@@ -118,6 +118,8 @@
 	margin:15px 0;
 }
 
+#smoothed-preview li{margin: 0;}
+
 #smoothed-preview>h2:first-child,
 #smoothed-preview>h1:first-child,
 #smoothed-preview>h1:first-child+h2,
