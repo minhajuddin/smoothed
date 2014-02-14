@@ -12,74 +12,64 @@
   };
 
   var commands = {
-
+    //Ctrl b
     bolden: new Smoothed.Command({
-      buttonSelector: 'a[data-smoothed-command=bolden]',
-      key: {
-        code: 66 //Ctrl b
-      },
+      key: 66,
       exec: function() {
         this.insert("**", "**")
       }
     }),
+    //Ctrl i
     italicize: new Smoothed.Command({
-      key: {
-        code: 73 //Ctrl i
-      },
+      key: 73,
       exec: function() {
         this.insert("*", "*")
       }
     }),
+    //Ctrl 1
     h1: new Smoothed.Command({
-      key: {
-        code: 49 //Ctrl 1
-      },
+      key: 49,
       exec: function() {
         var pos = this.positionOfLineStart();
         this.insertStringAt("#", pos + 1)
       }
     }),
+    //Ctrl 2
     h2: new Smoothed.Command({
-      key: {
-        code: 50 //Ctrl 2
-      },
+      key: 50,
       exec: function() {
         var pos = this.positionOfLineStart();
         this.insertStringAt("##", pos + 1)
       }
     }),
+    //Ctrl 3
     h3: new Smoothed.Command({
-      key: {
-        code: 51 //Ctrl 3
-      },
+      key: 51,
       exec: function() {
         var pos = this.positionOfLineStart();
         this.insertStringAt("###", pos + 1)
       }
     }),
+    //Ctrl r
     hr: new Smoothed.Command({
-      key: {
-        code: 82 //Ctrl r
-      },
+      key: 82,
       exec: function() {
         var pos = this.positionOfLineEnd();
         this.insertStringAt("\n\n----------\n\n", pos + 1)
       }
     }),
+    //Ctrl o
     ol: new Smoothed.Command({
-      key: {
-        code: 79 //Ctrl o
-      },
+      key: 79,
       exec: function() {
         var pos = this.positionOfLineEnd();
         this.insertStringAt("\n\n 1. List item\n\n", pos + 1);
         this.editable.setSelectionRange(pos + 6, pos + 15); //to select the text "List item"
       }
     }),
+    //Ctrl o
     ul: new Smoothed.Command({
-      key: {
-        code: 84 //Ctrl o
-      },
+      key: 84,
       exec: function() {
         var pos = this.positionOfLineEnd();
         this.insertStringAt("\n\n - List item\n\n", pos + 1);
@@ -99,4 +89,3 @@
   };
 
 })();
-

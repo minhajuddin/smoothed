@@ -98,7 +98,7 @@
     if (!this.key) {
       return false;
     }
-    return e.ctrlKey && this.key.code == e.keyCode;
+    return e.ctrlKey && this.key == e.keyCode;
   };
 
   Smoothed.prototype.wireupEventHandlers = function() {
