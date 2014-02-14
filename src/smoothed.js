@@ -1,11 +1,12 @@
 ;
 (function() {
   "use strict";
-  var l = function() {
-    console.log.apply(console, arguments);
-  };
+  var noop = function() {},
+  defaultOptions = {};
 
   window.Smoothed = function(options) {
+    this.options = _.
+  default(options, defaultOptions);
     this.editable = options.editable;
     this.preview = options.preview;
     this.$editable = $(options.editable);
@@ -34,35 +35,12 @@
     this.$editable.trigger('content-change');
   };
 
-  Smoothed.prototype.contentChange = _.debounce(function() {
-    this.$preview.html(this.markdown());
-  },
-  10);
-
-  Smoothed.prototype.markdown = function() {
-    return marked(this.editable.value);
-  }
+  Smoothed.prototype.contentChange = noop
+  Smoothed.prototype.keyUp = noop
 
   Smoothed.prototype.wireupEventHandlers = function() {
     var self = this;
-    this.$editable.on('keyup', function(e) {
-      var ctrl = e.ctrlKey,
-      shift = e.shiftKey,
-      alt = e.altKey,
-      key = e.keyCode,
-      blocked = false;
-
-      //Ctrl B
-      if (ctrl && key == 66) {
-        self.insert('**', '**')
-      }
-
-      self.$editable.trigger('content-change');
-      if (blocked) {
-        e.stopPropagation();
-        e.preventDefault();
-      }
-    });
+    this.$editable.on('keyup', _.bind(this.keyUp, this));
     this.$editable.on('content-change', _.bind(this.contentChange, this));
   };
 
