@@ -62,13 +62,13 @@
   }
 
   Smoothed.prototype.commands = function() {
-    return [];
+    return {};
   }
 
   Smoothed.prototype.contentChange = noop
   Smoothed.prototype.keyUp = noop
   Smoothed.prototype.runKeyCommand = function(e) {
-    var cmd = _.find(this.commands(), function(cmd) {
+    var cmd = _.find(this.commands(), function(cmd, name) {
       return cmd.keyCodeMatches(e);
     });
 
@@ -76,8 +76,8 @@
       return;
     }
 
-    e.stopPropagation();
     e.preventDefault();
+    e.stopPropagation();
     cmd.exec.apply(this);
   };
 
