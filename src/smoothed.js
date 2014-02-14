@@ -5,12 +5,11 @@
   defaultOptions = {};
 
   window.Smoothed = function(options) {
-    this.options = _.
-  default(options, defaultOptions);
-    this.editable = options.editable;
-    this.preview = options.preview;
-    this.$editable = $(options.editable);
-    this.$preview = $(options.preview);
+    this.options = _.defaults(options, defaultOptions);
+    this.editable = this.options.editable;
+    this.preview = this.options.preview;
+    this.$editable = $(this.options.editable);
+    this.$preview = $(this.options.preview);
     //internal code
     this.wireupEventHandlers();
     this.$editable.trigger('content-change');
@@ -35,12 +34,50 @@
     this.$editable.trigger('content-change');
   };
 
+  Smoothed.prototype.commands = function() {
+    return [];
+  }
+
   Smoothed.prototype.contentChange = noop
   Smoothed.prototype.keyUp = noop
+  Smoothed.prototype.runKeyCommand = function(e) {
+    var cmd = _.find(this.commands(), function(cmd) {
+      return cmd.keyCodeMatches(e);
+    });
+
+    console.log("Found", cmd);
+
+    if (!cmd) {
+      return;
+    }
+
+    cmd.exec.apply(this);
+
+    e.stopPropagation();
+    e.preventDefault();
+  }
+
+  Smoothed.Command = function(options) {
+    this.options = options;
+    if (options.key) {
+      this.key = options.key;
+    }
+    this.exec = options.exec;
+    return this;
+  };
+
+  Smoothed.Command.prototype.keyCodeMatches = function(e) {
+    console.log("keycode matches", e);
+    if (!this.key) {
+      return false;
+    }
+    return e.ctrlKey && this.key.code == e.keyCode;
+  };
 
   Smoothed.prototype.wireupEventHandlers = function() {
     var self = this;
     this.$editable.on('keyup', _.bind(this.keyUp, this));
+    this.$editable.on('keyup', _.bind(this.runKeyCommand, this));
     this.$editable.on('content-change', _.bind(this.contentChange, this));
   };
 

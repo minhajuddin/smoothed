@@ -11,24 +11,18 @@
     return marked(this.editable.value);
   };
 
-  Smoothed.prototype.keyUp = function(e) {
-    var ctrl = e.ctrlKey,
-    shift = e.shiftKey,
-    alt = e.altKey,
-    key = e.keyCode,
-    blocked = false;
-
-    //Ctrl B
-    if (ctrl && key == 66) {
-      this.insert('**', '**')
+  var commands = [new Smoothed.Command({
+    key: {
+      code: 66
+    },
+    exec: function() {
+      console.log("Test")
     }
+  })]
 
-    if (blocked) {
-      e.stopPropagation();
-      e.preventDefault();
-    }
-    this.$editable.trigger('content-change');
-  };
+  Smoothed.prototype.commands = function() {
+    return commands;
+  }
 
 })();
 
