@@ -34,6 +34,22 @@
     this.$editable.trigger('content-change');
   };
 
+  Smoothed.prototype.positionOfLineStart = function() {
+    var i = this.editable.selectionStart;
+    for (; i >= 0; i--) {
+      if (this.editable.value.substr(i, 1) == "\n") {
+        break;
+      }
+    }
+    return i;
+  }
+
+  Smoothed.prototype.insertStringAt = function(str, pos) {
+    this.editable.setSelectionRange(pos, pos);
+    this.insert(str);
+    this.$editable.trigger('content-change');
+  }
+
   Smoothed.prototype.commands = function() {
     return [];
   }
@@ -68,7 +84,6 @@
     if (!this.key) {
       return false;
     }
-    console.log(e, this.key);
     return e.ctrlKey && this.key.code == e.keyCode;
   };
 

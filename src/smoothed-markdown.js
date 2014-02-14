@@ -23,8 +23,15 @@
       code: 73 //Ctrl i
     },
     exec: function() {
-      console.log("HOO")
       this.insert("*", "*")
+    }
+  }), new Smoothed.Command({
+    key: {
+      code: 51 //Ctrl 3
+    },
+    exec: function() {
+      var pos = this.positionOfLineStart();
+      this.insertStringAt("#", pos + 1)
     }
   })]
 
@@ -34,7 +41,7 @@
 
   //for debugging
   Smoothed.prototype.keyUp = function(e) {
-    //console.log(e.keyCode);
+    console.log(e.keyCode);
   };
 
 })();
