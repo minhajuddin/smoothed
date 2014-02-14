@@ -1,3 +1,4 @@
+;
 (function() {
   "use strict";
   var l = function() {
@@ -5,16 +6,12 @@
   };
 
   window.Smoothed = function(options) {
-    this.editable = options.editable,
+    this.editable = options.editable;
     this.preview = options.preview;
-
+    this.$editable = $(options.editable);
+    this.$preview = $(options.preview);
     //internal code
-    l('init');
-    l(options);
-    l('done');
-
     this.wireupEventHandlers()
-
     return this;
   };
 
@@ -23,7 +20,6 @@
   //  editor.insert("<a>", "</a>") => Wraps the selected text with these
   //  editor.insert("Foo") => Replaces the selected text with 'Foo'
   Smoothed.prototype.insert = function(startTag, endTag) {
-    l(startTag, endTag);
     var asymmetric = arguments.length > 1,
     selectionStart = this.editable.selectionStart,
     selectionEnd = this.editable.selectionEnd,
@@ -34,13 +30,13 @@
     //select the newly inserted tags and the old selection
     this.editable.setSelectionRange(asymmetric || selectionStart === selectionEnd ? selectionStart + startTag.length: selectionStart, (asymmetric ? selectionEnd: selectionStart) + startTag.length);
     this.editable.focus();
-    $(this.editable).trigger('keyup');
+    this.$editable.trigger('content-changed');
   };
 
-  Smoothed.prototype.wireupEventHandlers = function(){
-    self = this;
-    $(this.editable).on('keyup', function(){
-      self.preview.innerHTML = marked(self.editable.value);
+  Smoothed.prototype.wireupEventHandlers = function() {
+    var self = this;
+    this.$editable.on('keyup', function() {
+      self.$editable.trigger('content-changed')
     });
   }
 
