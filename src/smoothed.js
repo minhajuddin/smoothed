@@ -11,7 +11,8 @@
     this.$editable = $(options.editable);
     this.$preview = $(options.preview);
     //internal code
-    this.wireupEventHandlers()
+    this.wireupEventHandlers();
+    this.$editable.trigger('content-change');
     return this;
   };
 
@@ -30,15 +31,25 @@
     //select the newly inserted tags and the old selection
     this.editable.setSelectionRange(asymmetric || selectionStart === selectionEnd ? selectionStart + startTag.length: selectionStart, (asymmetric ? selectionEnd: selectionStart) + startTag.length);
     this.editable.focus();
-    this.$editable.trigger('content-changed');
+    this.$editable.trigger('content-change');
   };
+
+  Smoothed.prototype.contentChange = _.debounce(function() {
+    this.$preview.html(this.markdown());
+  },
+  10);
+
+  Smoothed.prototype.markdown = function() {
+    return marked(this.editable.value);
+  }
 
   Smoothed.prototype.wireupEventHandlers = function() {
     var self = this;
     this.$editable.on('keyup', function() {
-      self.$editable.trigger('content-changed')
+      self.$editable.trigger('content-change');
     });
-  }
+    this.$editable.on('content-change', _.bind(this.contentChange, this));
+  };
 
 })();
 
