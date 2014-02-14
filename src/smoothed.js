@@ -76,9 +76,7 @@
       return;
     }
 
-    e.preventDefault();
-    e.stopPropagation();
-    cmd.exec.apply(this);
+    cmd.run(e, this)
   };
 
   Smoothed.Command = function(options) {
@@ -88,6 +86,12 @@
     }
     this.exec = options.exec;
     return this;
+  };
+
+  Smoothed.Command.prototype.run = function(e, editor) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.exec.apply(editor, [e]);
   };
 
   Smoothed.Command.prototype.keyCodeMatches = function(e) {
@@ -103,6 +107,12 @@
     this.$editable.on('keyup', _.bind(this.runKeyCommand, this));
     this.$editable.on('keyup', contentChange);
     this.$editable.on('content-change', contentChange);
+    var self = this;
+    $(document).on('click', 'a[data-smoothed-command]', function(e) {
+      var cmdName = $(this).attr('data-smoothed-command')
+      var cmd = self.commands()[cmdName];
+      cmd && cmd.run(e, self)
+    })
   };
 
 })();

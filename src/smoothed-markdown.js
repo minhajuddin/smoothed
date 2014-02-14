@@ -63,7 +63,7 @@
       },
       exec: function() {
         var pos = this.positionOfLineEnd();
-        this.insertStringAt("----------", pos + 1)
+        this.insertStringAt("\n\n----------\n\n", pos + 1)
       }
     })
   };
