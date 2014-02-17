@@ -42,3 +42,6 @@
 #smoothed-preview>*:last-child{
 	margin-bottom:0!important;
 }
+#toolbar button{
+  font-weight: bold;
+}
