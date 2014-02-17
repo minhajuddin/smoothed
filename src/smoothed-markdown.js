@@ -2,6 +2,8 @@
 (function() {
   "use strict";
 
+  var toolbarTemplate = _.template("<div id='<%= _.uniqueId(\"toolbar-\") %>'>" + "<button data-smoothed-command='bolden'>b</button>" + "<button data-smoothed-command='italicize'>i</button>" + "<button data-smoothed-command='quote'>'</button>" + "<button data-smoothed-command='h1'>h1</button>" + "<button data-smoothed-command='h2'>h2</button>" + "<button data-smoothed-command='h3'>h3</button>" + "<button data-smoothed-command='hr'>hr</button>" + "<button data-smoothed-command='ol'>ol</button>" + "<button data-smoothed-command='ul'>ul</button>" + "</div>");
+
   Smoothed.prototype.contentChange = _.debounce(function() {
     this.$preview.html(this.markdown());
   },
@@ -93,6 +95,17 @@
 
   Smoothed.prototype.commands = function() {
     return commands;
+  }
+
+  Smoothed.prototype.afterInit = function() {
+    var self = this,
+    toolbar = $.parseHTML(toolbarTemplate());
+    this.$editable.before(toolbar);
+    $(toolbar).on('click', 'button[data-smoothed-command]', function(e) {
+      var cmdName = $(this).attr('data-smoothed-command')
+      var cmd = self.commands()[cmdName];
+      cmd && cmd.run(e, self)
+    })
   }
 
   //for debugging

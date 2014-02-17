@@ -13,6 +13,7 @@
     //internal code
     this.wireupEventHandlers();
     this.$editable.trigger('content-change');
+    (this.afterInit || noop).apply(this)
     return this;
   };
 
@@ -105,14 +106,8 @@
     var contentChange = _.bind(this.contentChange, this)
     this.$editable.on('keyup', _.bind(this.keyUp, this));
     this.$editable.on('keyup', _.bind(this.runKeyCommand, this));
-    this.$editable.on('keyup', contentChange);
-    this.$editable.on('content-change', contentChange);
-    var self = this;
-    $(document).on('click', 'button[data-smoothed-command]', function(e) {
-      var cmdName = $(this).attr('data-smoothed-command')
-      var cmd = self.commands()[cmdName];
-      cmd && cmd.run(e, self)
-    })
+    this.$editable.on('keyup', _.bind(contentChange, this));
+    this.$editable.on('content-change', _.bind(contentChange, this));
   };
 
 })();
