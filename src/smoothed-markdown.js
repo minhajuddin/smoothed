@@ -2,7 +2,7 @@
 (function() {
   "use strict";
 
-  var toolbarTemplate = _.template("<div id='<%= _.uniqueId(\"toolbar-\") %>'>" + "<button data-smoothed-command='bolden'>b</button>" + "<button data-smoothed-command='italicize'>i</button>" + "<button data-smoothed-command='quote'>'</button>" + "<button data-smoothed-command='h1'>h1</button>" + "<button data-smoothed-command='h2'>h2</button>" + "<button data-smoothed-command='h3'>h3</button>" + "<button data-smoothed-command='hr'>hr</button>" + "<button data-smoothed-command='ol'>ol</button>" + "<button data-smoothed-command='ul'>ul</button>" + "</div>");
+  var toolbarTemplate = _.template("<div id='<%= _.uniqueId(\"toolbar-\") %>'>" + "<button data-smoothed-command='bolden'>b</button>" + "<button data-smoothed-command='italicize'>i</button>" + "<button data-smoothed-command='quote'>'</button>" + "<button data-smoothed-command='h1'>h1</button>" + "<button data-smoothed-command='h2'>h2</button>" + "<button data-smoothed-command='h3'>h3</button>" + "<button data-smoothed-command='hr'>hr</button>" + "<button data-smoothed-command='ol'>ol</button>" + "<button data-smoothed-command='ul'>ul</button>" + "<button data-smoothed-command='img'>IMG</button>" + "</div>");
 
   Smoothed.prototype.contentChange = _.debounce(function() {
     this.$preview.html(this.markdown());
@@ -89,6 +89,14 @@
           this.insertStringAt("\n\n> put your quote here\n\n", start);
           this.editable.setSelectionRange(pos + 4, pos + 23); //to select the text "put your quote here"
         }
+      }
+    }),
+
+    img: new Smoothed.Command({
+      key: 82,
+      exec: function() {
+        var img = prompt("Enter image URL", "https://substancehq.s3.amazonaws.com/static_asset/53025ddd8aef3a081d0065f8/KhajaMinhajuddin.jpg")
+        this.insert("![Image](" + img + ")")
       }
     })
   };
